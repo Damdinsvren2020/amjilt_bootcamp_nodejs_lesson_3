@@ -57,7 +57,9 @@ exports.createHome_Page = async (req, res, next) => {
 exports.updateHome_Page = async (req, res, next) => {
   try {
     const { id } = req.params;
+    console.log("nad ruu iim hvselt ireh ystoi", id);
     const { name, description } = req.body;
+    console.log("uurchlut hiigdsen utga", req.body);
     const newHome_Pages_Update = await Home_Page.findByIdAndUpdate(id);
     if (name) {
       newHome_Pages_Update.name = name;

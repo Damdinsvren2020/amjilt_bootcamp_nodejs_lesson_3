@@ -5,7 +5,7 @@ const logger = require("./config/logger");
 const connectDB = require("./config/mongodb");
 connectDB();
 const homeRouter = require("./routes/home_page");
-
+app.use(express.json());
 app.use("/home_pages", homeRouter);
 // npm install --save winston
 

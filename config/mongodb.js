@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
   mongoose
-    .connect("mongodb://127.0.0.1:27017/Amjilt_Bootcamp_Node", {
+    .connect("mongodb://localhost:27017/Node_js", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
