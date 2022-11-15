@@ -36,30 +36,54 @@ exports.getHome_Page = async (req, res, next) => {
   }
 };
 
-exports.getHome_Page = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    data: `${req.params.id}`,
-  });
+exports.createHome_Page = async (req, res, next) => {
+  try {
+    const { name, description } = req.body;
+    const Pages = new Home_Page({
+      name: name,
+      description: description,
+    });
+    const pages = await Pages.save();
+    res.status(200).json({
+      success: true,
+      data: pages,
+    });
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
 };
 
-exports.createHome_Page = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    data: "Home page vvsgeh",
-  });
+exports.updateHome_Page = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, description } = req.body;
+    const newHome_Pages_Update = await Home_Page.findByIdAndUpdate(id);
+    if (name) {
+      newHome_Pages_Update.name = name;
+    }
+    if (description) {
+      newHome_Pages_Update.description = description;
+    }
+    const { newHome_Pages_update } = await newHome_Pages_update.save();
+    if (newHome_Pages_update) {
+      res.json({
+        success: true,
+      });
+    }
+  } catch (err) {
+    next(err);
+    console.log(err);
+    res.json({ success: false });
+  }
 };
 
-exports.updateHome_Page = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    data: `${req.params.id}`,
-  });
-};
-
-exports.deleteHome_Page = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    data: `${req.params.id}`,
-  });
+exports.deleteHome_Page = async (req, res, next) => {
+  const delete_homepage = await Home_Page.findByIdAndRemove(req.params.id);
+  if (!delete_homepage) {
+    return res.status(400).json({
+      success: false,
+      error: req.params.id + "Id тай мэдээлэл устсан байна !!!",
+    });
+  }
 };
